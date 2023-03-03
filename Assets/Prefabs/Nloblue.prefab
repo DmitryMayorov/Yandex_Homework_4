@@ -127,9 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.001
-  enemy: []
-  closest: {fileID: 0}
-  transform_closest: {x: 0, y: 0}
+  MyStarship: {fileID: 1257215321222328127}
 --- !u!50 &-7309628742822084082
 Rigidbody2D:
   serializedVersion: 4

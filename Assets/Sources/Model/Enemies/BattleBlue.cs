@@ -6,32 +6,27 @@ namespace Asteroids.Model
 {
     public class BattleBlue : MonoBehaviour
     {
-        public int speed = 1;
-        public GameObject[] enemy;
-        public GameObject closest;
-        
-        GameObject FindClosestEnemy()
+        public float speed = 0.0007f;
+
+        private GameObject MyStarship;
+
+        private GameObject RedStarship;
+
+        public static GameObject BlueSStarship;
+
+        private void Start()
         {
-            float distance = Mathf.Infinity;
-            Vector3 position = transform.position;
-            foreach (GameObject go in enemy)
-            {
-                Vector3 diff = go.transform.position - position;
-                float curDistance = diff.magnitude;
-                if (curDistance < distance)
-                {
-                    closest = go;
-                    distance = curDistance;
-                }
-            }
-            return closest;
+            BlueSStarship = MyStarship;
+
+            RedStarship = BattleRed.RedStarship;
         }
 
         private void Update()
         {
-            enemy = GameObject.FindGameObjectsWithTag("RedTeam");
-            
-            transform.position = Vector2.Lerp(transform.position, closest.transform.position, speed);
+            if (RedStarship != null)
+            {
+                transform.position = Vector2.Lerp(transform.position, RedStarship.transform.position, speed);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -39,6 +34,7 @@ namespace Asteroids.Model
             if (collision.tag == "RedTeam")
             {
                 Destroy(collision.gameObject);
+
                 print("Красый звездалёт уничтожен");
             }
         }

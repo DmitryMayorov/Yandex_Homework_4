@@ -6,46 +6,38 @@ namespace Asteroids.Model
 {
     public class BattleRed : MonoBehaviour
     {
-        private float speed = 0.0005f;
+        public float speed = 0.0007f;
 
-        private GameObject[] enemy;
+        public GameObject MyStarship;
 
-        private GameObject closest;
+        public static GameObject RedStarship;
 
-        private Vector2 transform_closest;
+        private GameObject BlueStarship;
+
+        private void Awake()
+        {
+            RedStarship = MyStarship;
+        }
+
+        private void Start()
+        {
+            BlueStarship = BattleBlue.BlueSStarship;
+
+            print(BlueStarship);
+        }
 
         private void Update()
         {
-            enemy = GameObject.FindGameObjectsWithTag("BlueTeam");
-
-            if (GameObject.FindGameObjectWithTag("BlueTeam") != null)
+            if (BlueStarship != null)
             {
-                transform_closest = FindClosestEnemy().transform.position;
-
-                transform.position = Vector2.Lerp(transform.position, transform_closest, speed);
+                transform.position = Vector2.Lerp(transform.position, BlueStarship.transform.position, speed);
             }
-        }
-
-        GameObject FindClosestEnemy()
-        {
-            float distance = Mathf.Infinity;
-
-            Vector3 position = transform.position;
-
-            foreach (GameObject go in enemy)
+            else
             {
-                Vector3 diff = go.transform.position - position;
+                BlueStarship = BattleBlue.BlueSStarship;
 
-                float curDistance = diff.magnitude;
-
-                if (curDistance < distance)
-                {
-                    closest = go;
-
-                    distance = curDistance;
-                }
+                print(BlueStarship);
             }
-            return closest;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -67,3 +59,4 @@ namespace Asteroids.Model
         }
     }
 }
+
