@@ -6,32 +6,46 @@ namespace Asteroids.Model
 {
     public class BattleBlue : MonoBehaviour
     {
-        public int speed = 1;
+        public float speed = 0.0005f;
+
         public GameObject[] enemy;
+
         public GameObject closest;
-        
-        GameObject FindClosestEnemy()
-        {
-            float distance = Mathf.Infinity;
-            Vector3 position = transform.position;
-            foreach (GameObject go in enemy)
-            {
-                Vector3 diff = go.transform.position - position;
-                float curDistance = diff.magnitude;
-                if (curDistance < distance)
-                {
-                    closest = go;
-                    distance = curDistance;
-                }
-            }
-            return closest;
-        }
+
+        public Vector2 transform_closest;
 
         private void Update()
         {
             enemy = GameObject.FindGameObjectsWithTag("RedTeam");
-            
-            transform.position = Vector2.Lerp(transform.position, closest.transform.position, speed);
+
+            if (GameObject.FindGameObjectWithTag("RedTeam") != null)
+            {
+                transform_closest = FindClosestEnemy().transform.position;
+
+                transform.position = Vector2.Lerp(transform.position, transform_closest, speed);
+            }
+        }
+
+        GameObject FindClosestEnemy()
+        {
+            float distance = Mathf.Infinity;
+
+            Vector3 position = transform.position;
+
+            foreach (GameObject go in enemy)
+            {
+                Vector3 diff = go.transform.position - position;
+
+                float curDistance = diff.magnitude;
+
+                if (curDistance < distance)
+                {
+                    closest = go;
+
+                    distance = curDistance;
+                }
+            }
+            return closest;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -39,7 +53,16 @@ namespace Asteroids.Model
             if (collision.tag == "RedTeam")
             {
                 Destroy(collision.gameObject);
-                print("Красый звездалёт уничтожен");
+
+                print("Синий звездалёт уничтожен");
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Bullet"))
+            {
+                Destroy(gameObject);
             }
         }
     }

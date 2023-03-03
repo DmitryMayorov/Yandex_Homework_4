@@ -4,13 +4,19 @@ using System;
 
 public class PresentersFactory : MonoBehaviour
 {
+    public GameObject _nloTemplateRed;
+
+    public GameObject _nloTemplateBlue;
+
+    public GameObject[] spawnPosition;
+
+    private int randPosition;
+
     [SerializeField] private Camera _camera;
     [SerializeField] private Presenter _laserGunBulletTemplate;
     [SerializeField] private Presenter _defaultGunBulletTemplate;
     [SerializeField] private Presenter _asteroidTemplate;
     [SerializeField] private Presenter _asteroidPartTemplate;
-    [SerializeField] private Presenter _nloTemplateRed;
-    [SerializeField] private Presenter _nloTemplateBlue;
 
     private int teamSelection = 0;
 
@@ -31,13 +37,14 @@ public class PresentersFactory : MonoBehaviour
     public void CreateNlo(Nlo nlo)
     {
         teamSelection++;
+        randPosition = UnityEngine.Random.Range(0, spawnPosition.Length);
         if (teamSelection % 2 == 0)
         {
-            CreatePresenter(_nloTemplateRed, nlo);
+            Instantiate(_nloTemplateRed, spawnPosition[randPosition].transform.position, Quaternion.identity);
         }
         else
         {
-            CreatePresenter(_nloTemplateBlue, nlo);
+            Instantiate(_nloTemplateBlue, spawnPosition[randPosition].transform.position, Quaternion.identity);
         }
     }
 

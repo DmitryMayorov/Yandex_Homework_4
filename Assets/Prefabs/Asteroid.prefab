@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5714051690309574898}
   - component: {fileID: 6020861953111671804}
   - component: {fileID: -5592899209094444788}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Asteroid
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.7473083, y: -0.13622999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

@@ -14,17 +14,9 @@ public class ShipPresenter : Presenter
     {
         if ((collision.gameObject.CompareTag("RedTeam") || collision.gameObject.CompareTag("BlueTeam") || collision.gameObject.CompareTag("Enemy")) && _health != 0)
         {
-            Destroy(collision.gameObject);
             _health--;
-            if (_health == 0)
-            {
-                _init.DisableShip();
-                print("Уничтожен");
-            }
-            else
-            {
-                print("Осталось жизней: " + _health);
-            }
+
+            if (_health == 0) _init.DisableShip();
         }
     }
 }

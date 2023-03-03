@@ -6,7 +6,7 @@ public class EnemyPresenter : Presenter
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            DestroyCompose();
+            Destroy(gameObject);
         }
     }
 }
